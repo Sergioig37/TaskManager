@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,16 +21,16 @@ public class UsuarioService {
     @Autowired
     ModelMapper modelMapper;
 
-    public Set<UsuarioDTO> getAllUsers(){
+    public List<UsuarioDTO> getAllUsers(){
 
-        Set<UsuarioDTO> usuarioDTOS = this.crearSetDTO((Set<Usuario>)usuarioDAO.findAll());
+        List<UsuarioDTO> usuarioDTOS = this.crearListDTO(usuarioDAO.findAll());
 
         return usuarioDTOS;
     }
 
-    public Set<UsuarioDTO> crearSetDTO(Set<Usuario> usuarios){
+    public List<UsuarioDTO> crearListDTO(List<Usuario> usuarios){
 
-        Set<UsuarioDTO> usuariosDTO = new HashSet<>();
+        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
 
         for(Usuario usuario: usuarios){
             usuariosDTO.add(this.crearDTO(usuario));

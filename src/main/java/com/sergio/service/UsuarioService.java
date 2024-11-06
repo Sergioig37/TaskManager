@@ -7,10 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -28,6 +25,14 @@ public class UsuarioService {
         return usuarioDTOS;
     }
 
+    public Usuario crearUsuario(UsuarioDTO usuarioDTO){
+
+        Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+
+        return usuario;
+
+    }
+
     public List<UsuarioDTO> crearListDTO(List<Usuario> usuarios){
 
         List<UsuarioDTO> usuariosDTO = new ArrayList<>();
@@ -39,9 +44,27 @@ public class UsuarioService {
         return usuariosDTO;
     }
 
+    public UsuarioDTO editarUsuario(Long id,UsuarioDTO usuarioDTO){
+
+        Optional<Usuario> usuario = usuarioDAO.findById(id);
+
+        if(!usuario.isPresent()){
+            return null;
+        }
+
+        modelMapper.map(usuarioDTO, usuario.get());
+
+        usuarioDAO.save(usuario.get());
+
+        return usuarioDTO;
+
+    }
+
     private UsuarioDTO crearDTO(Usuario usuario){
         UsuarioDTO usuarioDto = modelMapper.map(usuario, UsuarioDTO.class);
 
         return usuarioDto;
     }
+
+
 }

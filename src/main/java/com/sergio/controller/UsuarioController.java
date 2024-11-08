@@ -26,7 +26,7 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity<List<UsuarioDTO>> getUsers(){
 
-        List<UsuarioDTO> usuarios =  usuarioService.crearListDTO(usuarioDAO.findAll());
+        List<UsuarioDTO> usuarios =  usuarioService.getAllUsers();
 
         System.out.println("Pasando");
 

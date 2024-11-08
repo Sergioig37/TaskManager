@@ -17,35 +17,23 @@ public class UsuarioService {
     UsuarioDAO usuarioDAO;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    GlobalService globalService;
 
     public List<UsuarioDTO> getAllUsers(){
 
-        List<UsuarioDTO> usuarioDTOS = this.crearListDTO(usuarioDAO.findAll());
+        List<UsuarioDTO> usuarioDTOS = globalService.crearListDto(usuarioDAO.findAll(), UsuarioDTO.class);
 
         return usuarioDTOS;
     }
 
     public void crearUsuario(UsuarioDTO usuarioDTO){
 
-        Usuario usuario =  new Usuario();
+        Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
 
-        usuario.setCorreo(usuarioDTO.getCorreo());
-        usuario.setUsername(usuarioDTO.getUsername());
-        usuario.setPassword(usuarioDTO.getPassword());
 
         usuarioDAO.save(usuario);
 
-    }
-
-    public List<UsuarioDTO> crearListDTO(List<Usuario> usuarios){
-
-        List<UsuarioDTO> usuariosDTO = new ArrayList<>();
-
-        for(Usuario usuario: usuarios){
-            usuariosDTO.add(this.crearDTO(usuario));
-        }
-
-        return usuariosDTO;
     }
 
     public UsuarioDTO editarUsuario(Long id,UsuarioDTO usuarioDTO){
@@ -63,12 +51,5 @@ public class UsuarioService {
         return usuarioDTO;
 
     }
-
-    private UsuarioDTO crearDTO(Usuario usuario){
-        UsuarioDTO usuarioDto = modelMapper.map(usuario, UsuarioDTO.class);
-
-        return usuarioDto;
-    }
-
 
 }

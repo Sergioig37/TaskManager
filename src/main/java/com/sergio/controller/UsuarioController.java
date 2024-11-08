@@ -45,7 +45,7 @@ public class UsuarioController {
     @PostMapping("/post")
     public ResponseEntity<String> saveUser(@RequestBody UsuarioDTO usuarioDTO){
 
-            Usuario usuario = usuarioService.crearUsuario(usuarioDTO);
+            usuarioService.crearUsuario(usuarioDTO);
 
             return ResponseEntity.status(HttpStatus.OK).body("Usuario creado correctamente");
 

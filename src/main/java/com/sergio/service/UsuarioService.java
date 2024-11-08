@@ -25,11 +25,15 @@ public class UsuarioService {
         return usuarioDTOS;
     }
 
-    public Usuario crearUsuario(UsuarioDTO usuarioDTO){
+    public void crearUsuario(UsuarioDTO usuarioDTO){
 
-        Usuario usuario = modelMapper.map(usuarioDTO, Usuario.class);
+        Usuario usuario =  new Usuario();
 
-        return usuario;
+        usuario.setCorreo(usuarioDTO.getCorreo());
+        usuario.setUsername(usuarioDTO.getUsername());
+        usuario.setPassword(usuarioDTO.getPassword());
+
+        usuarioDAO.save(usuario);
 
     }
 

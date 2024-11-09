@@ -40,7 +40,7 @@ public class UsuarioService {
 
         Optional<Usuario> usuario = usuarioDAO.findById(id);
 
-        if(!usuario.isPresent()){
+        if(!usuario.isEmpty()){
             return null;
         }
 

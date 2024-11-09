@@ -4,10 +4,9 @@ import com.sergio.dao.TareaDAO;
 import com.sergio.dto.TareaDTO;
 import com.sergio.service.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,12 +21,41 @@ public class TareaController {
     TareaDAO tareaDAO;
 
 
-//    @GetMapping()
-//    public ResponseEntity<List<TareaDTO>> getTareas(){
-//
-//        List<TareaDTO> tareaDTOS =
-//
-//    }
+    @GetMapping()
+    public ResponseEntity<List<TareaDTO>> getTareas(){
+
+        List<TareaDTO> tareaDTOS = tareaService.getTareas();
+
+        return ResponseEntity.status(HttpStatus.OK).body(tareaDTOS);
+
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteTarea(@PathVariable Long id){
+
+        tareaDAO.deleteById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Borrado con éxito");
+
+    }
+
+    @PostMapping("/post")
+    public ResponseEntity<String> saveTarea(@RequestBody TareaDTO tareaDTO){
+
+        tareaService.crearTarea(tareaDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Creado correctamente");
 
 
+
+    }
+
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<String> editTarea(@PathVariable Long id, @RequestBody TareaDTO tareaDTO){
+
+        tareaService.editarTarea(id, tareaDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body("Editado correctamente");
+
+    }
 }

@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class ListaTarea {
     private Categoria categoria;
     @OneToMany(mappedBy = "lista", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.SUBSELECT)
-    private Set<Tarea> tareas;
+    private List<Tarea> tareas;
 
     @Override
     public String toString() {

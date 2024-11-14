@@ -37,7 +37,7 @@ public class ListaTareaController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletwLista(@PathVariable Long id){
 
-        listaTareaDAO.deleteById(id);
+        listaTareaService.borrarLista(id);
 
         return ResponseEntity.status(HttpStatus.OK).body("Borrado con éxito");
 
@@ -55,7 +55,13 @@ public class ListaTareaController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<String> editLista(@PathVariable Long id, @RequestBody ListaTareaDTO listaDTO){
 
-        listaTareaService.editarTarea(id, listaDTO);
+        ListaTareaDTO listaTarea = listaTareaService.editarTarea(id, listaDTO);
+
+        if(listaTarea == null){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La lista no existe");
+
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("Editado con éxito");
 

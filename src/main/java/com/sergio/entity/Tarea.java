@@ -1,5 +1,6 @@
 package com.sergio.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GenerationType;
@@ -19,9 +20,9 @@ public class Tarea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String descripcion;
-    private String categoria;
     private int prioridad;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private ListaTarea lista;
 
 
@@ -30,7 +31,6 @@ public class Tarea {
         return "Tarea{" +
                 "id=" + id +
                 ", descripcion='" + descripcion + '\'' +
-                ", categoria='" + categoria + '\'' +
                 ", prioridad=" + prioridad +
                 '}';
     }

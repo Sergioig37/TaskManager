@@ -1,6 +1,7 @@
 package com.sergio.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +25,14 @@ public class Usuario {
     private String password;
     private String correo;
 
-    @OneToMany(mappedBy = "propietario" ,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "propietario" ,fetch = FetchType.EAGER, cascade = CascadeType.DETACH, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference
     private Set<ListaTarea> listas;
 
-    @OneToMany(mappedBy = "creador", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "creador", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
+    @JsonManagedReference
     private Set<Categoria> categorias;
 
     @Override

@@ -53,7 +53,13 @@ public class TareaController {
     @PutMapping("/edit/{id}")
     public ResponseEntity<String> editTarea(@PathVariable Long id, @RequestBody TareaDTO tareaDTO){
 
-        tareaService.editarTarea(id, tareaDTO);
+        TareaDTO tarea = tareaService.editarTarea(id, tareaDTO);
+
+        if(tarea == null){
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Categoría no encontrada");
+
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("Editado correctamente");
 

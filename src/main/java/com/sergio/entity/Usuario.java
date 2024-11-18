@@ -25,12 +25,12 @@ public class Usuario {
     private String password;
     private String correo;
 
-    @OneToMany(mappedBy = "propietario" ,fetch = FetchType.EAGER, cascade = CascadeType.DETACH, orphanRemoval = true)
+    @OneToMany(mappedBy = "propietario", cascade = CascadeType.DETACH, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference
     private Set<ListaTarea> listas;
 
-    @OneToMany(mappedBy = "creador", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "creador",  cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(value = FetchMode.SUBSELECT)
     @JsonManagedReference
     private Set<Categoria> categorias;

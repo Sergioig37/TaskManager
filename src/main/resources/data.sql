@@ -6,10 +6,10 @@ VALUES ('sergio', '$2a$10$Dfj8wFJqzpuNm57jxQlB.ehRr8bXWWo9yKXQPxSHlMVGLzG/NZ3mG'
 
 INSERT INTO Categoria (nombre, creador_id) VALUES ('Categoría 1', 1), ('Categoría 2', 2),('Categoría 3', 3);
 
-INSERT INTO Lista_Tarea (propietario_id, categoria_id) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+INSERT INTO Lista_Tarea (propietario_id, categoria_id, nombre) VALUES
+(1, 1, 'Trabajo'),
+(2, 2, 'Casa'),
+(3, 3, 'Escuela');
 
 INSERT INTO Tarea (descripcion, prioridad, lista_id) VALUES
 ('Tarea 1 de alta prioridad', 1, 1),

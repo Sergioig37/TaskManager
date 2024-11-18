@@ -43,8 +43,10 @@ public class CategoriaController {
 
     }
 
-    @PostMapping("/save")
+    @PostMapping("/post")
     public ResponseEntity<String> saveCategoria(@RequestBody CategoriaDTO categoriaDTO) {
+
+        categoriaService.crearCategoria(categoriaDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body("Guardado con éxito");
 

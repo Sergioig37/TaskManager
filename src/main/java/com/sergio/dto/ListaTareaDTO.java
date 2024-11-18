@@ -12,8 +12,6 @@ import java.util.List;
 public class ListaTareaDTO  {
 
     private Long id;
-    private UsuarioDTO propietario;
-    private CategoriaDTO categoria;
-    private List<TareaDTO> tarea;
+    private String nombre;
 
 }

@@ -23,7 +23,7 @@ public class Categoria {
     @Fetch(FetchMode.SUBSELECT)
     @JsonManagedReference
     private Set<ListaTarea> listas;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Usuario creador;
 

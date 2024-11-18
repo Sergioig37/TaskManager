@@ -40,7 +40,7 @@ public class CategoriaService {
             return null;
         }
 
-        modelMapper.map(categoriaDTO, categoria);
+        modelMapper.map(categoriaDTO, categoria.get());
 
         categoriaDAO.save(categoria.get());
 
@@ -48,7 +48,7 @@ public class CategoriaService {
 
     }
 
-    public void crearTarea(CategoriaDTO categoriaDTO){
+    public void crearCategoria(CategoriaDTO categoriaDTO){
 
         Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
 

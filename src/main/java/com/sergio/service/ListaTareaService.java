@@ -1,9 +1,11 @@
 package com.sergio.service;
 
+import com.sergio.dao.CategoriaDAO;
 import com.sergio.dao.ListaTareaDAO;
 import com.sergio.dao.UsuarioDAO;
 import com.sergio.dto.ListaTareaDTO;
 import com.sergio.dto.TareaDTO;
+import com.sergio.entity.Categoria;
 import com.sergio.entity.ListaTarea;
 import com.sergio.entity.Tarea;
 import com.sergio.entity.Usuario;
@@ -31,6 +33,9 @@ public class ListaTareaService {
     @Autowired
     UsuarioDAO usuarioDAO;
 
+    @Autowired
+    CategoriaDAO categoriaDAO;
+
     public List<ListaTareaDTO> getListas() {
 
         List<ListaTareaDTO> listas = globalService.crearListDto(listaDAO.findAll(), ListaTareaDTO.class);
@@ -51,15 +56,23 @@ public class ListaTareaService {
     //Editar las listas implica dos cosas
     //1: Borrar tareas
     //2: Cambiar Categorías º
-    public ListaTareaDTO editarTarea(Long id, ListaTareaDTO listaTareaDTO) {
+    public ListaTareaDTO editarTarea(Long id, ListaTareaDTO listaTareaDTO, Long categoria) {
 
         Optional<ListaTarea> lista = listaDAO.findById(id);
+
 
         if (lista.isEmpty()) {
             return null;
         }
+        if(categoria != null){
+            Optional<Categoria> newCategoria = categoriaDAO.findById(categoria);
+            lista.get().setCategoria(newCategoria.get());
+            newCategoria.get().getListas().remove(lista.get());
+            newCategoria.get().getListas().add(lista.get());
+        }
 
         modelMapper.map(listaTareaDTO, lista.get());
+
 
         listaDAO.save(lista.get());
 

@@ -35,7 +35,7 @@ public class ListaTareaController {
 
     //TODO: Al eliminar las listas se tienen que eliminar todas las tareas que contenga también
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletwLista(@PathVariable Long id){
+    public ResponseEntity<String> deleteLista(@PathVariable Long id){
 
         listaTareaService.borrarLista(id);
 
@@ -43,19 +43,20 @@ public class ListaTareaController {
 
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<String> saveListas(@RequestBody ListaTareaDTO listaDT0){
+    @PostMapping("/post")
+    public ResponseEntity<String> saveListas(@RequestBody ListaTareaDTO listaDTO){
 
-        listaTareaService.crearLista(listaDT0);
+        listaTareaService.crearLista(listaDTO);
 
         return ResponseEntity.status(HttpStatus.OK).body("Lista Guardada con éxito");
 
     }
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> editLista(@PathVariable Long id, @RequestBody ListaTareaDTO listaDTO){
+    public ResponseEntity<String> editLista(@PathVariable Long id, @RequestBody ListaTareaDTO listaDTO,
+                                            @RequestParam (required = false) Long categoria){
 
-        ListaTareaDTO listaTarea = listaTareaService.editarTarea(id, listaDTO);
+        ListaTareaDTO listaTarea = listaTareaService.editarTarea(id, listaDTO, categoria);
 
         if(listaTarea == null){
 
